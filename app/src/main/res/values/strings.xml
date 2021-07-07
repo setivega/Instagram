@@ -5,4 +5,7 @@
     <string name="login_label">Login</string>
     <string name="signup_label">Sign Up</string>
     <string name="logout_label">Log Out</string>
+    <string name="picture_label">Take Picture</string>
+    <string name="post_label">Post</string>
+    <string name="caption_hint">Description...</string>
 </resources>
