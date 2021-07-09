@@ -9,9 +9,7 @@
         android:id="@+id/ivPostImage"
         android:layout_width="0dp"
         android:layout_height="@dimen/postitem_image_height"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
         android:contentDescription="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,9 +24,82 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
         android:textSize="@dimen/username_size"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/filler_username" />
+
+    <TextView
+        android:id="@+id/tvCreatedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/time_size"
+        app:layout_constraintEnd_toStartOf="@+id/btnMenu"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/filler_time" />
+
+    <ImageButton
+        android:id="@+id/btnMenu"
+        android:layout_width="@dimen/menu_width"
+        android:layout_height="@dimen/menu_height"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/ufi_more"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@null"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/save_height"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPostImage">
+
+        <ImageButton
+            android:id="@+id/btnLike"
+            style="@style/icon_style"
+            android:layout_width="@dimen/post_icon_size"
+            android:layout_height="@dimen/post_icon_size"
+            android:background="@drawable/ufi_heart"
+            android:contentDescription="@null" />
+
+        <ImageButton
+            android:id="@+id/btnComment"
+            style="@style/icon_style"
+            android:layout_width="@dimen/post_icon_size"
+            android:layout_height="@dimen/post_icon_size"
+            android:background="@drawable/ufi_comment"
+            android:contentDescription="@null" />
+
+        <ImageButton
+            android:id="@+id/btnShare"
+            android:layout_width="@dimen/post_icon_size"
+            android:layout_height="@dimen/post_icon_size"
+            android:background="@drawable/direct"
+            android:contentDescription="@null"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:id="@+id/btnSave"
+            android:layout_width="@dimen/save_width"
+            android:layout_height="@dimen/save_height"
+            android:background="@drawable/ufi_save_active"
+            android:contentDescription="@null" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvCaption"
@@ -43,6 +114,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPostImage"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:text="@string/filler_caption" />
 </androidx.constraintlayout.widget.ConstraintLayout>

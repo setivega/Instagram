@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
@@ -68,24 +70,27 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
         TextView tvUsername;
         TextView tvCaption;
+        TextView tvCreatedAt;
         ImageView ivPostImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvCaption = itemView.findViewById(R.id.tvCaption);
+            tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             ivPostImage = itemView.findViewById(R.id.ivPostImage);
             itemView.setOnClickListener(this);
         }
 
         public void bind(Post post) {
 
-            tvUsername.setText("@" + post.getUser().getUsername());
+            tvUsername.setText(post.getUser().getUsername());
             tvCaption.setText(post.getDescription());
+            tvCreatedAt.setText(ParseRelativeDate.getRelativeTimeAgo(post.getCreatedAt().toString()));
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(post.getImage().getUrl())
-                        .transform(new CenterCrop(), new RoundedCorners(16))
+                        .transform(new CenterCrop())
                         .into(ivPostImage);
             }
 

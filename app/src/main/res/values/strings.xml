@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Instagram</string>
 
-    <string name="username_label">username</string>
-    <string name="password_label">password</string>
+    <string name="username_label">Username</string>
+    <string name="password_label">Password</string>
 
     <string name="login_label">Login</string>
     <string name="signup_label">Sign Up</string>
@@ -17,6 +17,6 @@
     <string name="profile_item_label">Profile</string>
 
     <string name="filler_caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et iaculis mauris, non blandit purus. Nunc vitae pharetra orci. Maecenas iaculis hendrerit purus, a volutpat mi faucibus vel.</string>
-    <string name="filler_username">\@setivega</string>>
+    <string name="filler_username">setivega</string>>
     <string name="filler_time">5 hrs ago</string>
 </resources>

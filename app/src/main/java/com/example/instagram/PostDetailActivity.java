@@ -35,13 +35,13 @@ public class PostDetailActivity extends AppCompatActivity {
 
         post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
 
-        tvUsername.setText("@" + post.getUser().getUsername());
+        tvUsername.setText(post.getUser().getUsername());
         tvCaption.setText(post.getDescription());
         tvCreatedAt.setText(ParseRelativeDate.getRelativeTimeAgo(post.getCreatedAt().toString()));
         ParseFile image = post.getImage();
         if (image != null) {
             Glide.with(this).load(post.getImage().getUrl())
-                    .transform(new CenterCrop(), new RoundedCorners(16))
+                    .transform(new CenterCrop())
                     .into(ivPostImage);
         }
     }

@@ -4,17 +4,20 @@
 
     <item
         android:id="@+id/action_home"
-        android:icon="@drawable/instagram_home_filled_24"
         android:title="@string/home_item_label"
+        android:icon="@drawable/home_icon_state"
+        android:iconTint="@null"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_post"
-        android:icon="@drawable/instagram_new_post_outline_24"
+        android:icon="@drawable/post_icon_state"
         android:title="@string/post_item_label"
+        android:iconTint="@null"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_profile"
-        android:icon="@drawable/instagram_user_outline_24"
+        android:icon="@drawable/profile_icon_state"
         android:title="@string/profile_item_label"
+        android:iconTint="@null"
         app:showAsAction="always" />
 </menu>

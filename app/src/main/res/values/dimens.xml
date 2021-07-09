@@ -7,5 +7,13 @@
     <dimen name="postitem_image_height">280dp</dimen>
     <dimen name="postfragment_image_height">183dp</dimen>
 
+    <dimen name="post_icon_size">28dp</dimen>
+    <dimen name="save_width">20dp</dimen>
+    <dimen name="save_height">28dp</dimen>
+    <dimen name="menu_width">4dp</dimen>
+    <dimen name="menu_height">25dp</dimen>
+
+    <dimen name="login_logo_height">80dp</dimen>
+    <dimen name="login_btn_height">55dp</dimen>
 
 </resources>
