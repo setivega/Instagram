@@ -1,11 +1,18 @@
 package com.example.instagram.models;
 
 import android.media.Image;
+import android.os.Parcelable;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.parceler.Parcel;
+
+import java.util.Date;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
@@ -13,6 +20,7 @@ public class Post extends ParseObject {
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
+    public static final String CREATED_AT = "createdAt";
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);

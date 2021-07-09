@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="username_size">18sp</dimen>
+    <dimen name="description_size">16sp</dimen>
+    <dimen name="time_size">14sp</dimen>
+
+    <dimen name="postitem_image_height">280dp</dimen>
+    <dimen name="postfragment_image_height">183dp</dimen>
+
+
+</resources>
