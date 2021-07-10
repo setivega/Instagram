@@ -9,6 +9,7 @@
     <string name="logout_label">Log Out</string>
 
     <string name="picture_label">Take Picture</string>
+    <string name="retake_picture_label">Retake Picture</string>
     <string name="post_label">Post</string>
     <string name="caption_hint">Description...</string>
 
@@ -19,4 +20,7 @@
     <string name="filler_caption">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et iaculis mauris, non blandit purus. Nunc vitae pharetra orci. Maecenas iaculis hendrerit purus, a volutpat mi faucibus vel.</string>
     <string name="filler_username">setivega</string>>
     <string name="filler_time">5 hrs ago</string>
+
+    <string name="add_profile_image">Add Profile Image</string>
+    <string name="change_profile_image">Change Profile Image</string>
 </resources>

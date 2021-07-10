@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -130,6 +131,10 @@ public class PostFragment extends Fragment {
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
                 ivPostImage.setImageBitmap(takenImage);
+                etDescription.setVisibility(View.VISIBLE);
+                btnPost.setVisibility(View.VISIBLE);
+                btnTakePicture.setText(R.string.retake_picture_label);
+
             } else { // Result was a failure
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
@@ -166,8 +171,14 @@ public class PostFragment extends Fragment {
                     Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
                 }
                 Log.i(TAG, "Post save was successful!");
+                Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+
                 etDescription.setText("");
                 ivPostImage.setImageResource(0);
+
+                etDescription.setVisibility(View.INVISIBLE);
+                btnPost.setVisibility(View.INVISIBLE);
+                btnTakePicture.setText(R.string.picture_label);
             }
         });
     }

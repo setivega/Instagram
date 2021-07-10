@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.instagram.EndlessRecyclerViewScrollListener;
 import com.example.instagram.PostsAdapter;
 import com.example.instagram.R;
 import com.example.instagram.models.Post;
@@ -29,9 +30,11 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = "HomeFragment";
+    public static Integer LIMIT = 15;
     private RecyclerView rvPosts;
     private PostsAdapter postsAdapter;
     private SwipeRefreshLayout swipeContainer;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -57,7 +60,18 @@ public class HomeFragment extends Fragment {
         rvPosts.setAdapter(postsAdapter);
 
         // Set layout manager on recycler view
-        rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rvPosts.setLayoutManager(linearLayoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                LIMIT += 5;
+                queryPosts(LIMIT);
+            }
+        };
+
+        rvPosts.addOnScrollListener(scrollListener);
 
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -66,7 +80,7 @@ public class HomeFragment extends Fragment {
                 // Your code to refresh the list here.
                 // Make sure you call swipeContainer.setRefreshing(false)
                 // once the network request has completed successfully.
-                fetchTimelineAsync(0);
+                fetchTimelineAsync(LIMIT);
             }
         });
 
@@ -76,12 +90,16 @@ public class HomeFragment extends Fragment {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        queryPosts();
+        queryPosts(LIMIT);
+        rvPosts.scrollToPosition(0);
     }
+
+
 
     private void fetchTimelineAsync(int i) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
+        query.setLimit(i);
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {
@@ -99,9 +117,10 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void queryPosts() {
+    private void queryPosts(int limit) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
+        query.setLimit(limit);
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {

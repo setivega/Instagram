@@ -7,61 +7,68 @@
 
     tools:context=".fragments.PostFragment">
 
+    <ImageView
+        android:id="@+id/ivPostImage"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/postfragment_image_height"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="40dp"
+        android:contentDescription="@null"
+        app:layout_constraintBottom_toTopOf="@+id/etDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <Button
         android:id="@+id/btnPost"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="80dp"
+        android:layout_height="@dimen/btn_height"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/insta_blue"
         android:text="@string/post_label"
+        android:textColor="@color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btnTakePicture"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPostImage" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btnTakePicture"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/btn_height"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="40dp"
+        android:backgroundTint="@color/light_grey"
         android:text="@string/picture_label"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/btnPost" />
 
     <EditText
         android:id="@+id/etDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="28dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="19dp"
+        android:layout_marginBottom="16dp"
+        android:autofillHints="@null"
         android:ems="10"
         android:hint="@string/caption_hint"
         android:inputType="textPersonName"
-        android:autofillHints="@null"
-        app:layout_constraintBottom_toTopOf="@+id/btnTakePicture"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/ivPostImage"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/postfragment_image_height"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="10dp"
-        android:contentDescription="@null"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/btnPost"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnTakePicture"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

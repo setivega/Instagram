@@ -18,6 +18,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.instagram.models.Post;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -27,6 +28,7 @@ import java.util.List;
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
 
     public static final String TAG = "PostsAdapter";
+    public static final String PROFILE_IMAGE = "profileImage";
 
     private Context context;
     private List<Post> posts;
@@ -72,6 +74,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         TextView tvCaption;
         TextView tvCreatedAt;
         ImageView ivPostImage;
+        ImageView ivProfileImage;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +82,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvCaption = itemView.findViewById(R.id.tvCaption);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             ivPostImage = itemView.findViewById(R.id.ivPostImage);
+            ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             itemView.setOnClickListener(this);
         }
 
@@ -94,7 +98,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
                         .into(ivPostImage);
             }
 
-
+            ParseUser user = post.getUser();
+            ParseFile profileImage = (ParseFile) user.get(PROFILE_IMAGE);
+            if (profileImage != null) {
+                Glide.with(context).load(profileImage.getUrl())
+                        .transform(new CircleCrop())
+                        .into(ivProfileImage);
+            } else {
+                Glide.with(context).load(R.drawable.default_profile_image)
+                        .transform(new CircleCrop())
+                        .into(ivProfileImage);
+            }
         }
 
         @Override
