@@ -99,6 +99,8 @@ public class HomeFragment extends Fragment {
     private void fetchTimelineAsync(int i) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
+        query.include("createdAt");
+        query.orderByDescending("createdAt");
         query.setLimit(i);
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -120,6 +122,8 @@ public class HomeFragment extends Fragment {
     private void queryPosts(int limit) {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
+        query.include("createdAt");
+        query.orderByDescending("createdAt");
         query.setLimit(limit);
         query.findInBackground(new FindCallback<Post>() {
             @Override

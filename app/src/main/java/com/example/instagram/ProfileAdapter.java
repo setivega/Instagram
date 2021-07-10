@@ -1,0 +1,107 @@
+package com.example.instagram;
+
+import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.example.instagram.models.Post;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
+
+import org.parceler.Parcels;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHolder> {
+
+    public static final String TAG = "PostsAdapter";
+    public static final String PROFILE_IMAGE = "profileImage";
+
+    private Context context;
+    private List<Post> posts;
+
+    public ProfileAdapter(Context context) {
+        this.context = context;
+        posts = new ArrayList<>();
+    }
+
+    @NonNull
+    @Override
+    public ProfileAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View postView = LayoutInflater.from(context).inflate(R.layout.item_profile_post, parent, false);
+        return new ViewHolder(postView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ProfileAdapter.ViewHolder holder, int position) {
+        // Get the post at the position
+        Post post = posts.get(position);
+        // Bind the post data into the View Holder
+        holder.bind(post);
+    }
+
+    @Override
+    public int getItemCount() {
+        return posts.size();
+    }
+
+    public void addAll(List<Post> list){
+        posts.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+
+        ImageView ivPostImage;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            ivPostImage = itemView.findViewById(R.id.ivPostImage);
+            itemView.setOnClickListener(this);
+        }
+
+        public void bind(Post post) {
+
+            ParseFile image = post.getImage();
+            if (image != null) {
+                Glide.with(context).load(post.getImage().getUrl())
+                        .transform(new CenterCrop())
+                        .into(ivPostImage);
+            }
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            // validating position
+            if (position != RecyclerView.NO_POSITION) {
+                // Getting movie at position
+                Post post = posts.get(position);
+                // Creating new Intent
+                Intent detail = new Intent(context, PostDetailActivity.class);
+                // Sending the movie info to the new activity on load
+                detail.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                // Show the activity
+                context.startActivity(detail);
+            }
+        }
+    }
+}

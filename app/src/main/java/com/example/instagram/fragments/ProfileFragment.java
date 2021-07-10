@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -25,13 +28,18 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.instagram.LoginActivity;
+import com.example.instagram.ProfileAdapter;
 import com.example.instagram.R;
+import com.example.instagram.models.Post;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -40,7 +48,6 @@ import static android.app.Activity.RESULT_OK;
  */
 public class ProfileFragment extends Fragment {
 
-
     public static final String TAG = "ProfileFragment";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
     public static final String PROFILE_IMAGE = "profileImage";
@@ -48,6 +55,8 @@ public class ProfileFragment extends Fragment {
     private Button btnChangeImage;
     private ImageView ivProfileImage;
     private TextView tvUsername;
+    private RecyclerView rvPosts;
+    private ProfileAdapter profileAdapter;
     private File photoFile;
     public String photoFileName = "photo.jpg";
     private ParseUser user;
@@ -67,6 +76,18 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         user = ParseUser.getCurrentUser();
+
+        rvPosts = view.findViewById(R.id.rvPosts);
+
+        // Create an adapter
+        profileAdapter = new ProfileAdapter(view.getContext());
+
+        // Set adapter on the recycler view
+        rvPosts.setAdapter(profileAdapter);
+
+        // Set layout manager on recycler view
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+        rvPosts.setLayoutManager(gridLayoutManager);
 
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         tvUsername = view.findViewById(R.id.tvUsername);
@@ -105,6 +126,8 @@ public class ProfileFragment extends Fragment {
                 goLoginActivity();
             }
         });
+
+        queryPosts();
     }
 
     private void launchCamera() {
@@ -172,6 +195,32 @@ public class ProfileFragment extends Fragment {
                 btnChangeImage.setText(R.string.change_profile_image);
             }
         });
+    }
+
+    private void queryPosts() {
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.include(Post.KEY_USER);
+        query.include("createdAt");
+        query.orderByDescending("createdAt");
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        query.whereEqualTo("user", currentUser);
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue getting posts: ", e);
+                    return;
+                }
+                profileAdapter.clear();
+                profileAdapter.addAll(posts);
+                for (Post post : posts) {
+                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+                }
+                Log.i(TAG, "Querying posts: " + posts.size());
+
+            }
+        });
+
     }
 
     private void goLoginActivity() {

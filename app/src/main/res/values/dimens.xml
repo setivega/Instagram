@@ -19,5 +19,7 @@
     <dimen name="profile_pic">100dp</dimen>
     <dimen name="profile_pic_feed">35dp</dimen>
 
+    <dimen name="profile_post_width">130dp</dimen>
+
 
 </resources>
